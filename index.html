@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Ibnuhafiz's digital portfolio — full-stack development, UI/UX, and open source projects.">
+    <title>Ibnuhafiz | Digital Portfolio</title>
+    <style>
+        :root {
+            --primary: #0f172a;
+            --secondary: #334155;
+            --accent: #38bdf8;
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--primary);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 5%;
+            background-color: rgba(15, 23, 42, 0.95);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--secondary);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            margin-left: 2rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover, .nav-links a:focus-visible { color: var(--accent); }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 6rem 1rem 2rem;
+            background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
+        }
+
+        .hero h1 { font-size: 4rem; margin-bottom: 1rem; }
+        .hero span { color: var(--accent); }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background-color: var(--accent);
+            color: var(--primary);
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            transition: transform 0.2s, opacity 0.2s;
+        }
+
+        .btn:hover { transform: translateY(-2px); opacity: 0.9; }
+        .btn:focus-visible, input:focus-visible, textarea:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+        section { padding: 5rem 5%; scroll-margin-top: 5rem; }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            border-bottom: 2px solid var(--accent);
+            display: inline-block;
+            padding-bottom: 0.5rem;
+        }
+
+        .section-container { max-width: 1200px; margin: 0 auto; }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text p { margin-bottom: 1.5rem; color: var(--text-muted); }
+        .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 1rem; margin-top: 2rem; }
+
+        .skill-card {
+            background-color: var(--secondary);
+            padding: 1rem;
+            text-align: center;
+            border-radius: 8px;
+            border: 1px solid transparent;
+            transition: border-color 0.3s;
+        }
+
+        .skill-card:hover { border-color: var(--accent); }
+        .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+
+        .project-card {
+            background-color: var(--secondary);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .project-card:hover { transform: translateY(-5px); }
+
+        .project-img {
+            height: 200px;
+            background-color: #475569;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+        }
+
+        .project-info { padding: 1.5rem; }
+        .project-info h3 { margin-bottom: 0.5rem; color: var(--accent); }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: var(--secondary);
+            padding: 2rem;
+            border-radius: 10px;
+        }
+
+        .form-group { margin-bottom: 1.5rem; }
+
+        input, textarea {
+            width: 100%;
+            padding: 1rem;
+            background-color: var(--primary);
+            border: 1px solid #475569;
+            color: var(--text);
+            border-radius: 5px;
+        }
+
+        textarea { resize: vertical; }
+        input:focus, textarea:focus { outline: none; border-color: var(--accent); }
+        .form-status { min-height: 1.6em; margin-top: 1rem; color: var(--accent); }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background-color: var(--secondary);
+            color: var(--text-muted);
+            margin-top: 4rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .about-content { grid-template-columns: 1fr; gap: 2rem; }
+            .nav-links { display: none; }
+            .projects-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            *, *::before, *::after { transition-duration: 0.01ms !important; }
+        }
+    </style>
+</head>
+<body>
+    <nav aria-label="Main navigation">
+        <div class="logo">Ibnuhafiz</div>
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#projects">Projects</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <main>
+        <section id="home" class="hero">
+            <h1>Hi, I'm <span>Ibnuhafiz</span></h1>
+            <p>Full Stack Developer | UI/UX Enthusiast | Open Source Contributor</p>
+            <a href="#projects" class="btn">View My Work</a>
+        </section>
+
+        <section id="about">
+            <div class="section-container">
+                <div style="text-align: center;"><h2>About Me</h2></div>
+                <div class="about-content">
+                    <div class="about-text">
+                        <p>I am a passionate developer dedicated to building efficient and scalable web applications. With a strong foundation in modern web technologies, I transform complex problems into elegant digital solutions.</p>
+                        <p>My journey in technology is driven by curiosity and a desire to create tools that make a difference. I specialize in the MERN stack and cloud architecture.</p>
+                    </div>
+                    <div>
+                        <h3>Technical Skills</h3>
+                        <div class="skills-grid">
+                            <div class="skill-card">JavaScript</div>
+                            <div class="skill-card">React</div>
+                            <div class="skill-card">Node.js</div>
+                            <div class="skill-card">Python</div>
+                            <div class="skill-card">SQL</div>
+                            <div class="skill-card">Docker</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects">
+            <div class="section-container">
+                <div style="text-align: center;"><h2>Featured Projects</h2></div>
+                <div class="projects-grid">
+                    <article class="project-card">
+                        <div class="project-img" aria-hidden="true">Project Image 1</div>
+                        <div class="project-info">
+                            <h3>E-Commerce Platform</h3>
+                            <p>A full-stack shopping application with payment gateway integration and real-time inventory management.</p>
+                        </div>
+                    </article>
+                    <article class="project-card">
+                        <div class="project-img" aria-hidden="true">Project Image 2</div>
+                        <div class="project-info">
+                            <h3>Task Management App</h3>
+                            <p>Collaborative productivity tool featuring drag-and-drop interfaces and team analytics.</p>
+                        </div>
+                    </article>
+                    <article class="project-card">
+                        <div class="project-img" aria-hidden="true">Project Image 3</div>
+                        <div class="project-info">
+                            <h3>Data Visualization Dashboard</h3>
+                            <p>Interactive dashboard for analyzing large datasets with dynamic charts and reporting tools.</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <div class="section-container">
+                <div style="text-align: center;"><h2>Get In Touch</h2></div>
+                <form class="contact-form" id="contact-form">
+                    <div class="form-group">
+                        <input type="text" name="name" placeholder="Your Name" aria-label="Your name" autocomplete="name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" name="email" placeholder="Your Email" aria-label="Your email" autocomplete="email" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea name="message" rows="5" placeholder="Your Message" aria-label="Your message" required></textarea>
+                    </div>
+                    <button class="btn" type="submit">Send Message</button>
+                    <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; <span id="year"></span> Ibnuhafiz. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        document.getElementById('contact-form').addEventListener('submit', function (event) {
+            event.preventDefault();
+            document.getElementById('form-status').textContent = 'Thanks for your message! This demo form is not connected to a mail service yet.';
+            this.reset();
+        });
+    </script>
+</body>
+</html>
